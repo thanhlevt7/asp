@@ -1,0 +1,104 @@
+﻿@model IEnumerable<CakesAsp.Areas.Admin.Models.Cart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+
+    ViewData["Title"] = "Cart";
+    int total(int price, int quantity)
+    {
+        return price * quantity;
+    }
+
+    int TotalBill()
+    {
+        int sum = 0;
+        foreach (var item in Model)
+        {
+            sum += item.Product.Price * item.Quantity;
+        }
+        return sum;
+    }
+
+}
+
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>  @Html.DisplayNameFor(model => model.Product)</th>
+                                    <th>  @Html.DisplayNameFor(model => model.Quantity)</th>
+                                    <th> Total  </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic" style="width:200px;height:300px;">
+                                                <img src="../asset/img/shop/@item.Product.Image" alt="">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>@item.Product.Name</h6>
+                                                <h5>@item.Product.Price VNĐ</h5>
+                                            </div>
+                                        </td>
+                                        <td >
+                                         
+                                           @item.Quantity
+                                             
+                                        </td>
+                                        <td class="cart__price">@total(item.Product.Price, item.Quantity) VNĐ</td>
+                                        <td class="cart__close"><a asp-controller="Home" asp-action="DeleteSp" asp-route-id="@item.Id"><span class="icon_close"></span></a></td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a asp-controller="Home" asp-action="Index">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        <h6>Discount codes</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Coupon code">
+                            <button type="submit">Apply</button>
+                        </form>
+                    </div>
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+
+                            <li>Total <span>@TotalBill() VNĐ</span></li>
+                        </ul>
+                        <a asp-action="Checkout" asp-controller="Home" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+

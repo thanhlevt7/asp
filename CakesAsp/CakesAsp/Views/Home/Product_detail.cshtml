@@ -1,0 +1,38 @@
+﻿
+@{
+}
+
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-6">
+                        <div class="product__details__img">
+                            <div class="product__details__big__img">
+                                <img class="big_img" src="~/asset/img/shop/@item.Image" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product__details__text">
+                            <div class="product__label">Cupcake</div>
+                            <h4>@item.Name</h4>
+                            <h5>@item.Price</h5>
+                            <p>
+                               @item.Description
+                            </p>
+                            <div class="product__details__option">
+                              
+                                <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@item.Id" class="primary-btn">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </section>
+
+  
